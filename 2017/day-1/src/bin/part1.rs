@@ -1,4 +1,4 @@
-static INPUT: &str = include_str!("input");
+static INPUT: &str = include_str!("../input");
 
 fn main() {
     println!("solution: {}", captcha_solver(INPUT));
