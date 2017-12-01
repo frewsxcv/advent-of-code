@@ -12,9 +12,12 @@ fn captcha_solver(captcha: &str) -> usize {
     let bytes = captcha.as_bytes(); // assume string is ASCII
 
     (0..bytes.len())
-        .filter_map(|idx| {
-            if bytes[idx] == bytes[((idx + (bytes.len() / 2)) % bytes.len())] {
-                Some(ascii_byte_to_val(bytes[idx]))
+        .map(|idx| {
+            (idx, (idx + (bytes.len() / 2)) % bytes.len())
+        })
+        .filter_map(|(idx1, idx2)| {
+            if bytes[idx1] == bytes[idx2] {
+                Some(ascii_byte_to_val(bytes[idx1]))
             } else {
                 None
             }
