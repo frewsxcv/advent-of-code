@@ -20,10 +20,8 @@ fn score_line(line: &str) -> usize {
         .flat_map(|(i, smaller_num)| {
             std::iter::repeat(smaller_num).zip(&nums[(i + 1)..])
         })
-        .filter_map(|(smaller_num, larger_num)| if larger_num % smaller_num ==
-            0
-        {
-            Some(larger_num / smaller_num)
+        .filter_map(|(smaller, larger)| if larger % smaller == 0 {
+            Some(larger / smaller)
         } else {
             None
         })
