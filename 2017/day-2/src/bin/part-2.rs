@@ -11,14 +11,20 @@ fn calculate_checksum(input: &str) -> usize {
 fn score_line(line: &str) -> usize {
     let mut nums = tokenize_line(line).collect::<Vec<_>>();
     nums.sort();
-    for (i, smaller_num) in nums.iter().enumerate() {
-        for larger_num in &nums[(i + 1)..] {
+    nums.iter()
+        .enumerate()
+        .flat_map(|(i, smaller_num)| {
+            std::iter::repeat(smaller_num).zip(&nums[(i + 1)..])
+        })
+        .filter_map(|(smaller_num, larger_num)| {
             if larger_num % smaller_num == 0 {
-                return larger_num / smaller_num;
+                Some(larger_num / smaller_num)
+            } else {
+                None
             }
-        }
-    }
-    panic!("Could not determine score for line")
+        })
+        .next()
+        .expect("Could not determine score for line")
 }
 
 fn tokenize_line<'a>(line: &'a str) -> Box<Iterator<Item=usize> + 'a> {
