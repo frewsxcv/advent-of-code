@@ -1,3 +1,7 @@
+extern crate day_2;
+
+use day_2::tokenize_line;
+
 static INPUT: &str = include_str!("../input");
 
 fn main() {
@@ -25,13 +29,6 @@ fn score_line(line: &str) -> usize {
         })
         .next()
         .expect("Could not determine score for line")
-}
-
-fn tokenize_line<'a>(line: &'a str) -> Box<Iterator<Item=usize> + 'a> {
-    Box::new(
-        line.split_whitespace()
-            .map(|n| n.parse::<usize>().unwrap())
-    )
 }
 
 #[test]
