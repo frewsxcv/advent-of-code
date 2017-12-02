@@ -13,8 +13,7 @@ fn calculate_checksum(input: &str) -> usize {
 }
 
 fn score_line(line: &str) -> usize {
-    tokenize_line(line).max().unwrap()
-        - tokenize_line(line).min().unwrap()
+    tokenize_line(line).max().unwrap() - tokenize_line(line).min().unwrap()
 }
 
 #[test]

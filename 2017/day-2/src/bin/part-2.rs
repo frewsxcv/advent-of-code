@@ -20,12 +20,12 @@ fn score_line(line: &str) -> usize {
         .flat_map(|(i, smaller_num)| {
             std::iter::repeat(smaller_num).zip(&nums[(i + 1)..])
         })
-        .filter_map(|(smaller_num, larger_num)| {
-            if larger_num % smaller_num == 0 {
-                Some(larger_num / smaller_num)
-            } else {
-                None
-            }
+        .filter_map(|(smaller_num, larger_num)| if larger_num % smaller_num ==
+            0
+        {
+            Some(larger_num / smaller_num)
+        } else {
+            None
         })
         .next()
         .expect("Could not determine score for line")
