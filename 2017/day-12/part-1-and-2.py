@@ -15,4 +15,5 @@ for line in input_.strip().splitlines():
     for node2 in rest.split(', '):
         graph.add_edge(node1, node2)
 
-print(len(graph.clusters()[0]))
+print("part 1", len(graph.clusters()[0]))
+print("part 2", len(graph.clusters()))
