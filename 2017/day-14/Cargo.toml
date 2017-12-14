@@ -5,3 +5,4 @@ authors = ["Corey Farwell <coreyf@rwell.org>"]
 
 [dependencies]
 hex = "0.3"
+petgraph = "0.4"
