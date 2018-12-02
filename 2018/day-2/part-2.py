@@ -1,4 +1,3 @@
-import collections
 import itertools
 
 with open('input.txt') as f:
