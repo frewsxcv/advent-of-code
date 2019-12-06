@@ -4,13 +4,12 @@ const CENTER_OF_MASS: &str = "COM";
 const INPUT: &str = include_str!("input.txt");
 
 type SpaceObject = String;
-// { orbiter: orbitee }
-type OrbitalRelationshipsMap = HashMap<SpaceObject, SpaceObject>;
 
 #[derive(Debug)]
 struct SpaceMap {
     space_objects: HashSet<SpaceObject>,
-    orbital_relationships_map: OrbitalRelationshipsMap,
+    // { orbiter: orbitee }
+    orbital_relationships_map: HashMap<SpaceObject, SpaceObject>,
 }
 
 impl SpaceMap {
@@ -34,15 +33,18 @@ impl SpaceMap {
     fn num_orbits(&self) -> u32 {
         self.space_objects
             .iter()
-            .map(|mut space_object| {
-                let mut count = 0;
-                while space_object != CENTER_OF_MASS {
-                    space_object = &self.orbital_relationships_map[space_object];
-                    count += 1;
-                }
-                count
-            })
+            .map(|s| self.num_orbits_from_center_of_mass(s))
             .sum()
+    }
+
+    fn num_orbits_from_center_of_mass(&self, space_object: &SpaceObject) -> u32 {
+        if space_object == CENTER_OF_MASS {
+            0
+        } else {
+            1 + self.num_orbits_from_center_of_mass(
+                &self.orbital_relationships_map[space_object]
+            )
+        }
     }
 }
 
